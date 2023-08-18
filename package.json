@@ -43,6 +43,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.0.0",
     "@storybook/addon-essentials": "^7.2.1",
     "@storybook/addon-interactions": "^7.2.1",
     "@storybook/addon-links": "^7.2.1",
@@ -53,7 +54,10 @@
     "@storybook/react-webpack5": "^7.2.1",
     "@storybook/testing-library": "^0.2.0",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.7",
     "eslint-plugin-storybook": "^0.6.13",
+    "jest": "^27.5.1",
     "storybook": "^7.2.1",
     "webpack": "^5.88.2"
   }
