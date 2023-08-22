@@ -9,12 +9,17 @@ export const Wrapper = styled.div`
 `;
 Wrapper.displayName = 'TransactionWrapper'
 
+export const MyForm = styled.form`
+    display: flex;
+    width:100%;
+`;
+MyForm.displayName = 'MyForm';
+
 export const Input = styled.input`
     border-radius: 3px;
     padding: 0 5px;
-    min-width: 80px;
+    width: 148px;
     margin-bottom: 3px;
-    margin-right: 10px;
     border: 1px solid #dbdbdb;
     height: 40px;
     outline: none;
@@ -24,6 +29,9 @@ Input.displayName = 'Input';
 export const Row = styled.div`
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: space-around;
+    flex-wrap: wrap;
 `
 Row.displayName = 'Row'
 
@@ -36,9 +44,9 @@ export const Button = styled.button`
     background-color: #e0e0e0;
     color: rgba(0, 0, 0, 0.87);
     font-size: 18px;
-    margin-right: 10px;
     outline: none;
-    width: 118px;
+    width: 160px;
+    margin-bottom: 3px;
 
     &:hover {
         cursor: pointer;
@@ -52,10 +60,9 @@ export const Comment = styled.textarea`
     box-sizing: border-box;
     padding: 5px;
     border-radius: 3px;
-    width: 138px;
-    margin: 0px;
+    width: 160px;
+    margin-bottom: 3px;
     height: 40px;
-    min-width: 140px;
     border: 1px solid #dbdbdb;
     outline: none;
 `;
