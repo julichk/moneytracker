@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { PropTypes } from "prop-types";
-import { Wrapper, Input, Row, Button, Comment } from "./styles";
+import { Wrapper, Input, Row, Button, Comment, MyForm } from "./styles";
 
 class Form extends Component {
   constructor() {
@@ -31,7 +31,7 @@ class Form extends Component {
   render() {
     return (
       <Wrapper>
-        <form onSubmit={this.onSubmit}>
+        <MyForm onSubmit={this.onSubmit}>
           <Row>
             <Input
               type="date"
@@ -46,9 +46,6 @@ class Form extends Component {
               value={this.state.value}
               onChange={this.onChange}
             />
-          </Row>
-
-          <Row>
             <Button>Save</Button>
             <Comment
               name="comment"
@@ -56,7 +53,7 @@ class Form extends Component {
               onChange={this.onChange}
             />
           </Row>
-        </form>
+        </MyForm>
       </Wrapper>
     );
   }
