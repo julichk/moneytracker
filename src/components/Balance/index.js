@@ -1,8 +1,11 @@
+import {Wrapper} from "./style"
+
 const Balance = ({balance}) => {
   return(
-    <div>
-      Current balance: {balance}
-    </div>
+    <Wrapper>
+      <p>Current balance:</p>
+      <p>{balance}</p>
+    </Wrapper>
   )
 };
 
