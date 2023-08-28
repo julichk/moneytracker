@@ -53,7 +53,8 @@ class App extends Component {
       );
     }
     return (
-      <Router>
+      
+        <Router>
         <Wrapper>
         <GlobalStyle/>
         <Header/>
@@ -65,7 +66,6 @@ class App extends Component {
         
       </Wrapper>
       </Router>
-      
     );
   }
 }
