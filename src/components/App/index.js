@@ -9,25 +9,11 @@ import Statistics from "../Statistics";
 import Home from "../Home"
 import {open} from '../../utils/indexdb';
 import Header from "../Header";
+import Settings from "../Settings";
 
 let id = 0;
 
 class App extends Component {
-  // constructor() {
-  //   super();
-  //   this.state = {
-  //     balance: 0,
-  //     transaction: []
-  //   };
-  //   this.onChange = this.onChange.bind(this)
-  // }
-
-  // onChange = (value) => {
-  //   this.setState((state) => ({
-  //     balance: state.balance + Number(value),
-  //     transaction: [{value, label: 'Change', id: ++id}, ...state.transaction]
-  //   }));
-  // };
   constructor(props){
     super(props);
     
@@ -62,6 +48,7 @@ class App extends Component {
       <Route path="/" element={<Home />} />
       <Route path="/about" element={<About/>} />
       <Route path="/statistics" element={<Statistics/>} />
+      <Route path="/settings" element={<Settings/>} />
     </Routes>
         
       </Wrapper>
