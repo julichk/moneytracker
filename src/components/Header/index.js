@@ -14,6 +14,9 @@ const Header = () => {
             <li>
               <Link to="/statistics">Statistics</Link>
             </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
           </List>
         </Nav>
     </Menu>
