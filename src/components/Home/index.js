@@ -1,3 +1,4 @@
+import { useState, useEffect, useCallback } from "react";
 import Balance from "../Balance";
 import { Component } from "react";
 import Transactions from "../Transactions";
@@ -5,31 +6,27 @@ import { Wrapper} from './styles'
 import Form from "../Form";
 import ErrorBoundary from '../ErrorBoundary'
 import {getItems, addItem} from '../../utils/indexdb'
+import { useData } from "../../hooks";
+import { STATUSES } from "../../constants";
 
 
 
-class Home extends Component {
-  constructor() {
-    super();
-    this.state = {
-      balance: 0,
-      transaction: []
-    };
-    this.onChange = this.onChange.bind(this)
-  }
+const Home = () => {
+  const [balance, setBalance] = useState(0);
+  const [transactions, setTransactions] = useState([]);
 
-  componentDidMount(){
-    getItems().then((transaction) => {
-      this.setState({
-        transaction,
-        balance: transaction.reduce((acc, curr) => acc + curr.value, 0)
-      })
+  //const {transaction, status} = useData()
+
+  useEffect(() => {
+    getItems().then((item) => {
+      setTransactions(item)
     }).catch((e) => {
-      debugger
+      console.log('Error', e)
     })
-  }
+  }, [setTransactions]);
 
-  onChange = ({value, date, comment}) => {
+
+  const onChange = ({value, date, comment}) => {
      const transac = {
       value: +value, 
       comment, 
@@ -37,26 +34,44 @@ class Home extends Component {
       id: Date.now()
      }
 
-    this.setState((state) => ({
-      balance: state.balance + Number(value),
-      transaction: [transac, ...state.transaction]
-    }));
+     setTransactions([
+      ...transactions,
+      transac
+    ]);
+    
+    setBalance(balance + Number(value))
 
     addItem(transac);
   };
 
-  render() {
+  const onDelete = useCallback((id) => {
+    setTransactions((transactions) => transactions.filter((item) => item.id !=id))
+  }, [setTransactions]);
+
+  const onStarClick = useCallback((id) => {
+    setTransactions((transactions) => transactions.map((item) => item.id !=id ? item : {
+      ...item, 
+      isStarred: !item.isStarred
+    }))
+  })
+
     return (
       <ErrorBoundary>
         <Wrapper>
-        <Balance balance={this.state.balance}/>
-        <Form onChange = {this.onChange}/>
+        <Balance balance={balance}/>
+        <Form onChange = {onChange}/>
         <hr/>
-        <Transactions transaction = {this.state.transaction}/>
+        
+
+        <Transactions 
+          transaction = {transactions} 
+          onDelete ={onDelete}
+          onStarClick = {onStarClick}/>
+       
+        
       </Wrapper>
       </ErrorBoundary>
     );
-  }
 }
 
  

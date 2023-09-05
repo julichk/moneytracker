@@ -1,16 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
 const Counter = () => {
   const[clicks, setCliks] = useState(0);
   const [step, setStep] = useState(1);
+
+  const currentValue = useRef(0);
+
   const showValue = () => {
+    
     setTimeout(()=>{
-      alert(clicks)
+      alert(currentValue.current)
     }, 3000)
   }
 
   useEffect(() => {
-    console.log("render: ", clicks);
+    console.log("render: ", clicks, step);
     document.title = `Componrnt is rendered. Cliked ${clicks} times`;
+
+    currentValue.current = clicks;
 
     setStep ((prevValue) => prevValue + 1);
   }, [clicks,  setStep]);
