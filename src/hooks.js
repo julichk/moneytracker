@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { STATUSES } from "./constants";
 import {getItems, addItem} from './utils/indexdb'
 
@@ -44,7 +44,7 @@ export const useData = () => {
     })
   }, []);
 
-  const pushTransaction = (data) => {
+  const pushTransaction = useCallback((data) => {
     const transac = {
       ...data,
       value: +data.value,
@@ -53,30 +53,38 @@ export const useData = () => {
 
      console.log(transac)
 
-    setState({
+    setState((state) => ({
       ...state,
       transaction: [transac, ...state.transaction]
-    });
+    }));
 
     addItem(transac);
-  }
+  }, [setState]);
 
-  // const pushTransaction = (data) => {
-  //   const transaction = {
-  //     ...data,
-  //     value: +data.value,
-  //     id: Date.now()
-  //   }
-  //   setState({
-  //     ...state,
-  //     transaction: [transaction, ...state.transaction]
-  //   });
+ 
+  const onDelete = useCallback((id) => {
+    setState((state) => ({
+      ...state,
+      transaction: state.transaction.filter((item) => item.id !== id)
+    }));
+  }, [setState]);
 
-  //   addItem(transaction)
-  // }
 
+  const onStarClick = useCallback((id) => {
+    console.log('delete');
+    setState((state) => ({
+      ...state,
+      transaction: state.transaction.map((item) => item.id !==id ? item : {
+        ...item, 
+        isStarred: !item.isStarred
+      })
+    }))
+  }, [setState]);
+  
   return {
     ...state,
-     pushTransaction
+     pushTransaction,
+     onDelete,
+     onStarClick
   }
 }

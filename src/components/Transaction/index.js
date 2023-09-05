@@ -8,7 +8,8 @@ import StarYellow from '../assets/start_yellow.svg'
 const Transaction = ({tran: {id, value, date, comment, isStarred}, onDelete, onStarClick }) => {
 
   const {state} = useContext(AppContext);
-  const deleteItem = useCallback(() => onDelete(id), [id]);
+  const deleteItem = useCallback(() => 
+  onDelete(id), [id]);
 
   return (
     <Wrapper value={value}>
