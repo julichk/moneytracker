@@ -1,7 +1,13 @@
 import Transaction from "../Transaction";
 import { PropTypes } from "prop-types"; 
 
-const Transactions = ({transaction}) => (transaction.map((tran) => <Transaction key={tran.id} tran={tran}/>));
+const Transactions = ({transaction, onDelete, onStarClick}) => {
+  return transaction.map((tran) => {
+    return <Transaction key={tran.id} 
+    tran={tran} 
+    onDelete={onDelete} 
+    onStarClick = {onStarClick}
+    />})};
 
 Transactions.propTypes = {
   transaction: PropTypes.array

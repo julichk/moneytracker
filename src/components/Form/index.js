@@ -1,62 +1,65 @@
-import { Component } from "react";
+import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { Wrapper, Input, Row, Button, Comment, MyForm } from "./styles";
 
-class Form extends Component {
-  constructor() {
-    super();
-    this.state = {
+const Form = (props) => {
+  
+    const [form, setForm] = useState({
       value: "",
       date: new Date().toISOString().substring(0,10),
       comment: "",
-    };
-  }
-  onSubmit = (e) => {
-    e.preventDefault();
+    })
+  
+  const onChange = (e) => {
+    console.log('onchange')
+    const { value, name } = e.target;
 
-    this.props.onChange(this.state);
-    this.setState({
+    
+    setForm({
+      ...form,
+      [name]: value,
+    })
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    props.onChange(form);
+    setForm({
+      ...form,
       value: "",
       comment: "",
-    });
+    })
   };
 
-  onChange = (e) => {
-    const { value, name } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-
-  render() {
+  
     return (
       <Wrapper>
-        <MyForm onSubmit={this.onSubmit}>
+        <MyForm onSubmit={onSubmit}>
           <Row>
             <Input
               type="date"
               name="date"
-              value={this.state.date}
-              onChange={this.onChange}
+              value={form.value}
+              onChange={onChange}
             />
             <Input
               name="value"
               type="number"
               placeholder="Summ"
-              value={this.state.value}
-              onChange={this.onChange}
+              value={form.value}
+              onChange={onChange}
             />
             <Button>Save</Button>
             <Comment
               name="comment"
-              value={this.state.comment}
-              onChange={this.onChange}
+              value={form.comment}
+              onChange={onChange}
             />
           </Row>
         </MyForm>
       </Wrapper>
     );
-  }
+  
 }
 
 Form.propTypesropTypes = {
