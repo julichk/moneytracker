@@ -3,4 +3,4 @@ export default {
   SUCCESS: 'SUCCESS',
   ERROR: 'ERROR',
   PENDING: 'PENDING'
-}
+};

@@ -5,7 +5,7 @@ import Transactions from "../Transactions";
 import { Wrapper} from './styles'
 import Form from "../Form";
 import ErrorBoundary from '../ErrorBoundary'
-import {getItems, addItem} from '../../utils/indexdb'
+import { addItem} from '../../utils/indexdb'
 import { useData } from "../../hooks";
 import { STATUSES } from "../../constants";
 
@@ -13,35 +13,29 @@ import { STATUSES } from "../../constants";
 
 const Home = () => {
   const [balance, setBalance] = useState(0);
-  const [transactions, setTransactions] = useState([]);
+  const [transactionsOld, setTransactions] = useState([]);
 
-  //const {transaction, status} = useData()
+  const {transaction, status, pushTransaction} = useData()
 
-  useEffect(() => {
-    getItems().then((item) => {
-      setTransactions(item)
-    }).catch((e) => {
-      console.log('Error', e)
-    })
-  }, [setTransactions]);
+  const onChange = (data) => {
 
+    pushTransaction(data)
 
-  const onChange = ({value, date, comment}) => {
-     const transac = {
-      value: +value, 
-      comment, 
-      date, 
-      id: Date.now()
-     }
+    //  const transac = {
+    //   value: +value, 
+    //   comment, 
+    //   date, 
+    //   id: Date.now()
+    //  }
 
-     setTransactions([
-      ...transactions,
-      transac
-    ]);
+    //  setTransactions([
+    //   transac,
+    //   ...transaction
+    // ]);
     
-    setBalance(balance + Number(value))
+    setBalance(balance + Number(data.value))
 
-    addItem(transac);
+    //addItem(transac);
   };
 
   const onDelete = useCallback((id) => {
@@ -62,13 +56,16 @@ const Home = () => {
         <Form onChange = {onChange}/>
         <hr/>
         
+        {status === STATUSES.PENDING ?(
+          <div>Loading...</div>
+        ) : null}
 
-        <Transactions 
-          transaction = {transactions} 
+        {status === STATUSES.SUCCESS ?(
+          <Transactions 
+          transaction = {transaction} 
           onDelete ={onDelete}
           onStarClick = {onStarClick}/>
-       
-        
+        ): null}
       </Wrapper>
       </ErrorBoundary>
     );
