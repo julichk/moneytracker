@@ -1,70 +1,82 @@
-// import { useState, useEffect } from "react";
-// import { STATUSES } from "./constants";
-// import {getItems, addItem} from './utils/indexdb'
+import { useState, useEffect } from "react";
+import { STATUSES } from "./constants";
+import {getItems, addItem} from './utils/indexdb'
 
-// export const useBooleanToogle = (itialStatus = false) => {
-//   const [status, setStatus] = useState(itialStatus);
+export const useBooleanToogle = (itialStatus = false) => {
+  const [status, setStatus] = useState(itialStatus);
 
-//   const handleStatusChange = () => {
-//     console.log('switch state')
-//     setStatus((currentStatus) => !currentStatus)
-//   };
+  const handleStatusChange = () => {
+    console.log('switch state')
+    setStatus((currentStatus) => !currentStatus)
+  };
 
-//   return {
-//     status,
-//     handleStatusChange
-//   }
-// };
+  return {
+    status,
+    handleStatusChange
+  }
+};
 
-// export const useData = () => {
-//   const [state, setState] = useState({
-//     transaction: [],
-//     error: '',
-//     status: STATUSES.IDEL
-//   });
+export const useData = () => {
+  const [state, setState] = useState({
+    transactions: [],
+    error: '',
+    status: STATUSES.IDEL
+  });
 
-//   useEffect(() => {
+  useEffect(() => {
+    setState({
+      ...state,
+      status: STATUSES.PENDING
+    });
+    getItems().then((transaction) => {
+      setState({
+        ...state,
+        transaction,
+        status: STATUSES.SUCCESS
+      })
+    }).catch((e) => {
+      setState({
+        ...state,
+        transaction: [],
+        status: STATUSES.ERROR,
+        error: e
+      })
+    })
+  }, []);
 
-//     setState({
-//       ...state,
-//       status: STATUSES.PENDING
-//     });
+  const pushTransaction = (data) => {
+    const transac = {
+      ...data,
+      value: +data.value,
+      id: Date.now()
+     }
 
-//     getItems().then((transaction) => {
-//       setState({
-//         ...state,
-//         transaction,
-//         status: STATUSES.SUCCESS
-//       })
-//     }).catch((e) => {
-//       setState({
-//         ...state,
-//         transaction: [],
-//         status: STATUSES.ERROR,
-//         error: e
-//       })
-//     })
-//   }, []);
+     console.log(transac)
 
-//   // const pushTransaction = (data) => {
-//   //   const transac = {
-//   //     ...data,
-//   //     value: +data.value,
-//   //     id: Date.now()
-//   //    }
+    setState({
+      ...state,
+      transaction: [transac, ...state.transaction]
+    });
 
-//   //    console.log(transac)
+    addItem(transac);
+  }
 
-//   //   setState({
-//   //     ...state,
-//   //     transaction: [transac, ...state.transaction]
-//   //   });
+  // const pushTransaction = (data) => {
+  //   const transaction = {
+  //     ...data,
+  //     value: +data.value,
+  //     id: Date.now()
+  //   }
+  //   setState({
+  //     ...state,
+  //     transaction: [transaction, ...state.transaction]
+  //   });
 
-//   //   addItem(transac);
-//   // }
+  //   addItem(transaction)
+  // }
 
-//   return {
-//     ...state,
-//     // pushTransaction
-//   }
-// }
+  return {
+    ...state,
+     pushTransaction
+  }
+}
