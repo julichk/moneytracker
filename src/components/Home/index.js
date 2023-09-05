@@ -9,45 +9,18 @@ import { addItem} from '../../utils/indexdb'
 import { useData } from "../../hooks";
 import { STATUSES } from "../../constants";
 
-
-
 const Home = () => {
   const [balance, setBalance] = useState(0);
-  const [transactionsOld, setTransactions] = useState([]);
 
-  const {transaction, status, pushTransaction} = useData()
+  const {transaction, status, pushTransaction, onDelete, onStarClick} = useData()
 
   const onChange = (data) => {
 
     pushTransaction(data)
-
-    //  const transac = {
-    //   value: +value, 
-    //   comment, 
-    //   date, 
-    //   id: Date.now()
-    //  }
-
-    //  setTransactions([
-    //   transac,
-    //   ...transaction
-    // ]);
     
     setBalance(balance + Number(data.value))
 
-    //addItem(transac);
   };
-
-  const onDelete = useCallback((id) => {
-    setTransactions((transactions) => transactions.filter((item) => item.id !=id))
-  }, [setTransactions]);
-
-  const onStarClick = useCallback((id) => {
-    setTransactions((transactions) => transactions.map((item) => item.id !=id ? item : {
-      ...item, 
-      isStarred: !item.isStarred
-    }))
-  })
 
     return (
       <ErrorBoundary>
@@ -70,7 +43,5 @@ const Home = () => {
       </ErrorBoundary>
     );
 }
-
- 
 
  export default Home;
