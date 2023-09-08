@@ -1,4 +1,5 @@
 import {Link} from "react-router-dom";
+import { ThemeSwitch } from "../ThemeSwitch";
 import {Nav, Menu, List} from './styles'
 const Header = () => {
   return(
@@ -19,6 +20,7 @@ const Header = () => {
             </li>
           </List>
         </Nav>
+        <ThemeSwitch/>
     </Menu>
   )
 };

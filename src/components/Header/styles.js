@@ -20,6 +20,7 @@ list-style-type: none;
 li{
    a {
     text-decoration: none;
+    color:${({theme}) => theme.linkColor};
    }
 }
 `
