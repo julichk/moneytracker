@@ -1,6 +1,6 @@
 import { createContext, useReducer } from "react";
 import defaultContext from "./defaultContext";
-import App from "../../components/App";
+import App from "../../components/App/app";
 
 const AppContext = createContext();
 
@@ -11,13 +11,22 @@ const reducer = (state, action) => {
         ...state,
         currency: action.currency
       }
+    };
+
+    case 'setTheme' : {
+      return {
+        ...state,
+        themeName: action.themeName
+      }
     }
+
+
     case 'reset' : {
       return defaultContext;
-    }
+    };
     default: {
       throw new Error('No action');
-    }
+    };
   }
 }
 
