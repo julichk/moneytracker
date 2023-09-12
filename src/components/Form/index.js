@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { Wrapper, Input, Row, Button, Comment, MyForm } from "./styles";
+import {FormattedMessage} from 'react-intl'
 
 const Form = (props) => {
   
@@ -34,6 +35,7 @@ const Form = (props) => {
   
     return (
       <Wrapper>
+        <FormattedMessage id='hello'/>
         <MyForm onSubmit={onSubmit}>
           <Row>
             <Input
