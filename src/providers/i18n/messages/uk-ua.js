@@ -8,6 +8,13 @@ export default {
       about: 'Про нас',
       settings: 'Налаштування',
       statistics: 'Статистика'
+    },
+    balance: {
+      currentBalance:'Поточний баланс:'
+    },
+    button: {
+      buttonSave: 'Зберегти',
+      buttonDelete: 'Видалити'
     }
   }
 }

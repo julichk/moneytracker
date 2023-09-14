@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PropTypes } from "prop-types";
 import { Wrapper, Input, Row, Button, Comment, MyForm } from "./styles";
-import {FormattedMessage} from 'react-intl'
+import {FormattedMessage} from 'react-intl';
 
 const Form = (props) => {
   
@@ -51,7 +51,9 @@ const Form = (props) => {
               value={form.value}
               onChange={onChange}
             />
-            <Button>Save</Button>
+            <Button>
+            <FormattedMessage id='button.buttonSave'/>
+            </Button>
             <Comment
               name="comment"
               value={form.comment}

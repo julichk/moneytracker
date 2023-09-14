@@ -14,15 +14,18 @@ const Header = () => {
             </li>
             <li>
               <Link to ='/about'>
-            <FormattedMessage id='menu.about'/></Link>
+            <FormattedMessage id='menu.about'/>
+            </Link>
             </li>
             <li>
             <Link to ='/statistics'>
-            <FormattedMessage id='menu.statistics'/></Link>
+            <FormattedMessage id='menu.statistics'/>
+            </Link>
             </li> 
             <li>
             <Link to ='/settings'>
-            <FormattedMessage id='menu.settings'/></Link>
+            <FormattedMessage id='menu.settings'/>
+            </Link>
             </li>
           </List>
         </Nav>
