@@ -2,8 +2,9 @@ import { useCallback, useContext } from "react";
 import { AppContext } from "../../providers/context";
 import { PropTypes } from "prop-types"; 
 import { Wrapper, TransactionDate, Value, Comment, Icon } from './styles';
-import Star from '../assets/start.svg'
-import StarYellow from '../assets/start_yellow.svg'
+import Star from '../assets/start.svg';
+import StarYellow from '../assets/start_yellow.svg';
+import {FormattedMessage} from 'react-intl';
 
 const Transaction = ({tran: {id, value, date, comment, isStarred}, onDelete, onStarClick }) => {
 
@@ -19,7 +20,9 @@ const Transaction = ({tran: {id, value, date, comment, isStarred}, onDelete, onS
       <TransactionDate>{date}</TransactionDate>
       <Value>{value.toFixed(2)} {state.currency}</Value>
       <Comment>{comment}</Comment>
-      <button onClick={deleteItem}>Delete</button>
+      <button onClick={deleteItem}>
+      <FormattedMessage id='button.buttonDelete'/>
+      </button>
     </Wrapper>
   )
 }

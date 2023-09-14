@@ -8,6 +8,13 @@ export default {
       about: 'About',
       settings: 'Settings',
       statistics: 'Statistcs'
+    },
+    balance: {
+      currentBalance:'Current balance:'
+    },
+    button: {
+      buttonSave: 'Save',
+      buttonDelete: 'Delete'
     }
   }
 }
