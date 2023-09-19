@@ -8,5 +8,7 @@ export default {
   linkColor: '#A3A3D9',
 
   backgroundBalance:'#C9F3FF',
-  colorBalance: '#F0A5AD'
+  colorBalance: '#F0A5AD',
+
+  changeBalanceWrapper: '#FFEEFC'
 }

@@ -5,5 +5,7 @@ export default {
   linkColor: '#6666BD',
 
   backgroundBalance:'#6094A3',
-  colorBalance: '#F0C9CD'
+  colorBalance: '#F0C9CD',
+  
+  changeBalanceWrapper: '#CCB8C3'
 }

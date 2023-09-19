@@ -29,7 +29,9 @@ const Form = (props) => {
       ...form,
       value: "",
       comment: "",
-    })
+    });
+
+    props.onCloseFormModal();
   };
 
   
