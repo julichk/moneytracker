@@ -1,4 +1,4 @@
-import { useCallback, useContext } from "react";
+import { useCallback, useContext, memo } from "react";
 import { AppContext } from "../../providers/context";
 import { PropTypes } from "prop-types"; 
 import { Wrapper, TransactionDate, Value, Comment, Icon } from './styles';
@@ -6,7 +6,7 @@ import Star from '../assets/start.svg';
 import StarYellow from '../assets/start_yellow.svg';
 import {FormattedMessage} from 'react-intl';
 
-const Transaction = ({tran: {id, value, date, comment, isStarred}, onDelete, onStarClick }) => {
+const Transaction = memo(({tran: {id, value, date, comment, isStarred}, onDelete, onStarClick }) => {
 
   const {state} = useContext(AppContext);
   const deleteItem = useCallback(() => 
@@ -25,7 +25,7 @@ const Transaction = ({tran: {id, value, date, comment, isStarred}, onDelete, onS
       </button>
     </Wrapper>
   )
-}
+})
 
 Transaction.defaultProps = {
   tran: {

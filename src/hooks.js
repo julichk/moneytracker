@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from "react";
 import { STATUSES } from "./constants";
-import {getItems, addItem, deleteItem, updateItem} from './utils/indexdb'
+import {getData, addItem, deleteItem, updateItem} from './utils/indexdb'
 
 export const useBooleanToogle = (itialStatus = false) => {
   const [status, setStatus] = useState(itialStatus);
@@ -20,29 +20,54 @@ export const useData = () => {
   const [state, setState] = useState({
     transactions: [],
     error: '',
-    status: STATUSES.IDEL
+    status: STATUSES.IDEL,
+    hasNextPage: true
   });
 
   useEffect(() => {
     setState({
+        ...state,
+        status: STATUSES.PENDING
+    });
+
+    getData(0, 20).then((transactions) => {
+        setState({
+            ...state,
+            transactions,
+            status: STATUSES.SUCCESS,
+            hasNextPage: true
+        })
+    }).catch((e) => {
+        setState({
+            ...state,
+            transactions: [],
+            status: STATUSES.ERROR,
+            error: e,
+            hasNextPage: false
+        })
+    })
+}, []);
+
+const loadMoreRows = useCallback(() => {
+  setState({
       ...state,
       status: STATUSES.PENDING
-    });
-    getItems().then((transaction) => {
+  });
+
+  getData(state.transactions.length, 20).then((transactions) => {
       setState({
-        ...state,
-        transaction,
-        status: STATUSES.SUCCESS
+          ...state,
+          transactions: [...state.transactions, ...transactions],
+          status: STATUSES.SUCCESS
       })
-    }).catch((e) => {
+  }).catch(() => {
       setState({
-        ...state,
-        transaction: [],
-        status: STATUSES.ERROR,
-        error: e
+          ...state,
+          hasNextPage: false
       })
-    })
-  }, []);
+  })
+}, [state]);
+
 
   const pushTransaction = useCallback((data) => {
     const transac = {
@@ -55,7 +80,7 @@ export const useData = () => {
 
     setState((state) => ({
       ...state,
-      transaction: [transac, ...state.transaction]
+      transactions: [transac, ...state.transactions]
     }));
 
     addItem(transac);
@@ -92,6 +117,7 @@ export const useData = () => {
     ...state,
      pushTransaction,
      onDelete,
-     onStarClick
+     onStarClick,
+     loadMoreRows
   }
 }

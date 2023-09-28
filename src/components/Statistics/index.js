@@ -1,18 +1,44 @@
 import {Modal} from "../Modal";
 import { useState } from "react";
 
-const Statistics = () => {
-const [openModal, setOpenModal] = useState(false);
+const list = new Array(20).fill(0).map(()=> `Item - ${Math.random()}`);
+
+const List = ( {list}) => {
+  const [filter, setFilter] = useState('');
+  const filteredList = list.filter((item) => item.includes(filter))
 
   return(
     <>
-    <h1>Statistics page</h1>
-    <button onClick = {() => setOpenModal(true)}>Open</button>
-    <Modal open={openModal} onClose={() => setOpenModal(false)}>
-      <div>Im in Portal</div>
-      <button onClick = {() => setOpenModal(false )}>Close</button>
-    </Modal>
+      <input type='text' onChange = {(e) => setFilter(e.target.value)}/>
+    <ul>
+      {filteredList.map((item) => <li key={item}>{item}</li>)}
+    </ul>
     </>
+  )
+};
+
+const Cliker = ({children}) => {
+  const [n, setN] = useState(0);
+
+  return(
+    <div data-count = {n}>
+      {children}
+      <p>Clicked {n} times</p>
+      <button onClick={() => setN(n + 1)}>Click me</button>
+    </div>
+  )
+}
+
+const Statistics = () => {
+
+
+
+  return(
+    <div>
+    <Cliker>
+      <List list = {list}/>
+    </Cliker>
+    </div>
   )
 }
 
