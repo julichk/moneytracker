@@ -12,7 +12,7 @@ import { STATUSES } from "../../constants";
 const Home = () => {
   const [balance, setBalance] = useState(0);
 
-  const {transaction, status, pushTransaction, onDelete, onStarClick} = useData()
+  const {transactions, status, pushTransaction, onDelete, onStarClick, hasNextPage, loadMoreRows} = useData()
 
   const onChange = (data) => {
 
@@ -29,16 +29,16 @@ const Home = () => {
         <ChangeBalance onChange={onChange}/>
         <hr/>
         
-        {status === STATUSES.PENDING ?(
-          <div>Loading...</div>
-        ) : null}
-
-        {status === STATUSES.SUCCESS ?(
+        
           <Transactions 
-          transaction = {transaction} 
+          data={transactions} 
+          isNextPageLoading={status === STATUSES.PENDING}
+          // transaction = {transaction}
+          hasNextPage={hasNextPage}
+          loadMoreRows={loadMoreRows} 
           onDelete ={onDelete}
           onStarClick = {onStarClick}/>
-        ): null}
+        
       </Wrapper>
       </ErrorBoundary>
     );

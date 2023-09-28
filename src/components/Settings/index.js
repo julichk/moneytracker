@@ -3,6 +3,7 @@ import { useBooleanToogle } from "../../hooks";
 import { AppContext } from "../../providers/context";
 import { LOCALES } from "../../providers/i18n";
 import { saveToStorage } from "../../utils/sessionStorage";
+import {addData } from '../../utils/generate';
 
 const Test = memo(({data}) => {
   console.log('rendering');
@@ -40,6 +41,7 @@ const Settings = () => {
     <>
       <h1>Settings</h1>
       <Test data ={data}/>
+      <button onClick={addData}>Add data</button>
       <div>
         <form>
           <div>
